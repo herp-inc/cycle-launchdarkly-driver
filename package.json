@@ -1,0 +1,37 @@
+{
+  "name": "@herp-inc/cycle-launchdarkly-driver",
+  "description": "LaunchDarkly driver for Cycle.js, based on fp-ts and io-ts",
+  "version": "0.1.0",
+  "keywords": [
+    "Cycle.js",
+    "LaunchDarkly"
+  ],
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "sideEffects": false,
+  "repository": "https://github.com/herp-inc/cycle-launchdarkly-driver",
+  "license": "MIT",
+  "devDependencies": {
+    "@cycle/run": "5.7.0",
+    "@herp-inc/eslint-config": "0.12.0",
+    "@rollup/plugin-typescript": "8.3.0",
+    "@typescript-eslint/eslint-plugin": "5.11.0",
+    "@typescript-eslint/parser": "5.11.0",
+    "eslint": "8.8.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.4",
+    "fp-ts": "2.11.8",
+    "io-ts": "2.2.16",
+    "launchdarkly-js-client-sdk": "2.20.0",
+    "prettier": "2.5.1",
+    "rollup": "2.67.2",
+    "typescript": "4.5.5",
+    "xstream": "11.14.0"
+  },
+  "peerDependencies": {
+    "fp-ts": "^2.11",
+    "io-ts": "^2.2",
+    "launchdarkly-js-client-sdk": "2",
+    "xstream": "11"
+  }
+}
