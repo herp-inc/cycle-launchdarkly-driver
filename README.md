@@ -20,6 +20,9 @@ $ yarn add @herp-inc/cycle-launchdarkly-driver
 ## Example
 
 ```typescript
+import { run } from '@cycle/run';
+import { makeDOMDriver } from '@cycle/dom';
+import { makeLaunchDarklyDriver } from '@herp-inc/cycle-launchdarkly-driver';
 import * as t from 'io-ts/Decoder';
 
 type Features = {
@@ -41,7 +44,10 @@ const Features = {
   },
 };
 
-function main({ features }) {
+type Sources = { features: FeaturesSource<Features> };
+type Sinks = { DOM: Stream<VNode> };
+
+function main({ features }: Sources): Sinks {
   return {
     DOM: features.stream.map(view),
   };
@@ -59,6 +65,7 @@ const drivers = {
       key: user.id,
     },
   }),
+  DOM: makeDOMDriver('#app'),
 };
 
 run(main, drivers);
