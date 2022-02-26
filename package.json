@@ -14,7 +14,7 @@
   "devDependencies": {
     "@cycle/run": "5.7.0",
     "@herp-inc/eslint-config": "0.13.0",
-    "@rollup/plugin-typescript": "8.3.0",
+    "@rollup/plugin-typescript": "8.3.1",
     "@typescript-eslint/eslint-plugin": "5.11.0",
     "@typescript-eslint/parser": "5.11.0",
     "eslint": "8.9.0",
