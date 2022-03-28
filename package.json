@@ -22,7 +22,7 @@
     "eslint-plugin-import": "2.25.4",
     "fp-ts": "2.11.9",
     "io-ts": "2.2.16",
-    "launchdarkly-js-client-sdk": "2.20.2",
+    "launchdarkly-js-client-sdk": "2.21.0",
     "prettier": "2.6.1",
     "rollup": "2.70.1",
     "typescript": "4.6.3",

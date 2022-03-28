@@ -938,10 +938,10 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-launchdarkly-js-client-sdk@2.20.2:
-  version "2.20.2"
-  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-2.20.2.tgz#4c5a72cc8e2d0b5dbb3d4dd31a30e36b243b9e8f"
-  integrity sha512-KAAb1nnpAiQF4dCohe0d1M7QSxhJfa9v6+5PJUPANAVZ3EwX/y6aL7mK8Mik2IrL5I654mseXxidfSbnHVMBXA==
+launchdarkly-js-client-sdk@2.21.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-2.21.0.tgz#e1d53eb367378c5d84bfbfc9f14f8a965d263167"
+  integrity sha512-sPnj9G1QKtRCf3MTHOUpYSKeHZQG7k6K60mrU8Wz+C1jMB4SouDlhSyK1R9SQmXhQy3A2fGRLimp3io18Ymziw==
   dependencies:
     escape-string-regexp "^1.0.5"
     launchdarkly-js-sdk-common "3.5.1"
