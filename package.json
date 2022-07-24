@@ -13,7 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "@cycle/run": "5.7.0",
-    "@herp-inc/eslint-config": "0.16.0",
+    "@herp-inc/eslint-config": "0.18.0",
     "@rollup/plugin-typescript": "8.3.3",
     "@typescript-eslint/eslint-plugin": "5.11.0",
     "@typescript-eslint/parser": "5.11.0",
