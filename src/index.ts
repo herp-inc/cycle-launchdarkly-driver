@@ -19,10 +19,6 @@ export type Params<Features extends Dictionary> = Readonly<{
      */
     decoder: Decoder<unknown, Features>;
     /**
-     * The default values of the feature flags.
-     */
-    defaultValues: Features;
-    /**
      * The client-side ID.
      */
     envKey: LDParams[0];
@@ -41,7 +37,6 @@ export type Params<Features extends Dictionary> = Readonly<{
  */
 export function makeLaunchDarklyDriver<Features extends Dictionary>({
     decoder,
-    defaultValues,
     envKey,
     options,
     user,
@@ -80,7 +75,7 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>({
             async stop() {
                 await client?.close();
             },
-        }).startWith(defaultValues),
+        }),
     });
 }
 
