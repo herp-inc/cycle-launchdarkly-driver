@@ -665,10 +665,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-fp-ts@2.12.2:
-  version "2.12.2"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.12.2.tgz#a191db2dbbb04f48a0e75050b94f57cc876c7b40"
-  integrity sha512-v8J7ud+nTkP5Zz17GhpCsY19wiRbB9miuj61nBcCJyDpu52zs9Z4O7OLDfYoKFQMJ9EsSZA7W1vRgC1d3jy5qw==
+fp-ts@2.12.3:
+  version "2.12.3"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.12.3.tgz#d991b1e8467d325dadbb6b0ab9524f773e9c3c49"
+  integrity sha512-8m0XvW8kZbfnJOA4NvSVXu95mLbPf4LQGwQyqVukIYS4KzSNJiyKSmuZUmbVHteUi6MGkAJGPb0goPZqI+Tsqg==
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -855,10 +855,10 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-io-ts@2.2.17:
-  version "2.2.17"
-  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.17.tgz#19531c9d49abcebc935d85d282e1db95adb01901"
-  integrity sha512-RkQY06h6rRyADVEI46OCAUYTP2p18Vdtz9Movi19Mmj7SJ1NhN/yGyW7CxlcBVxh95WKg2YSbTmcUPqqeLuhXw==
+io-ts@2.2.18:
+  version "2.2.18"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.18.tgz#dfb41aded5f0e598ccf2a25a483c205444210173"
+  integrity sha512-3JxUUzRtPQPs5sOwB7pW0+Xb54nOzqA6M1sRB1hwgsRmkWMeGTjtOrCynGTJhIj+mBLUj2S37DAq2+BrPh9kTQ==
 
 is-bigint@^1.0.1:
   version "1.0.4"
