@@ -58,6 +58,7 @@ const drivers = {
     envKey: YOUR_CLIENT_SIDE_ID,
     decoder: FeatureFlags.decoder,
     defaultValues: FeatureFlags.defaultValues,
+    fallbackDelay: 100,
     options: {
       bootstrap: 'localStorage',
     },

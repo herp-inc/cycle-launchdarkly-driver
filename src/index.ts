@@ -4,6 +4,7 @@ import { pipe } from 'fp-ts/function';
 import type { Decoder } from 'io-ts/Decoder';
 import * as LaunchDarkly from 'launchdarkly-js-client-sdk';
 import { type MemoryStream, Stream } from 'xstream';
+import delay from 'xstream/extra/delay';
 
 type Dictionary = Readonly<{ [_: string]: unknown }>;
 
@@ -27,6 +28,11 @@ export type Params<Features extends Dictionary> = Readonly<{
      */
     envKey: LDParams[0];
     /**
+     * When the LaunchDarkly client initialization exceeds this duration, the default values will be emitted to the sink.
+     * In milliseconds.
+     */
+    fallbackDelay?: number | undefined;
+    /**
      * Optional configuration settings.
      */
     options?: LDParams[2];
@@ -36,6 +42,27 @@ export type Params<Features extends Dictionary> = Readonly<{
     user: LDParams[1];
 }>;
 
+function makeClient$(...[envKey, user, options]: LDParams): Stream<LaunchDarkly.LDClient> {
+    let client: LaunchDarkly.LDClient | undefined;
+
+    return Stream.create<LaunchDarkly.LDClient>({
+        start: (listener) => {
+            client = LaunchDarkly.initialize(envKey, user, options);
+
+            void client.waitForInitialization().then(() => {
+                if (client === undefined) {
+                    return;
+                }
+                listener.next(client);
+            });
+        },
+        stop: () => {
+            void client?.close();
+            client = undefined;
+        },
+    });
+}
+
 /**
  * A factory function for the LaunchDarkly driver.
  */
@@ -43,15 +70,18 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>({
     decoder,
     defaultValues,
     envKey,
+    fallbackDelay = 0,
     options,
     user,
 }: Params<Features>): Driver<void, FeaturesSource<Features>> {
-    let client: LaunchDarkly.LDClient;
+    const client$ = makeClient$(envKey, user, options);
+    const $ = client$.map((client) => {
+        let onNext: () => void;
+        let onError: (err: unknown) => void;
 
-    return () => ({
-        stream: Stream.create<Features>({
+        return Stream.create<Features>({
             start(listener) {
-                const emit = (): void => {
+                onNext = (): void => {
                     const allFlags = client.allFlags();
                     const flags = decoder.decode(allFlags);
 
@@ -69,18 +99,27 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>({
                     action();
                 };
 
-                client = LaunchDarkly.initialize(envKey, user, options);
+                onError = listener.error;
 
-                client.on('change', emit);
-                client.on('ready', emit);
+                client.on('change', onNext);
 
                 client.on('error', listener.error);
                 client.on('failed', listener.error);
+
+                onNext();
             },
-            async stop() {
-                await client?.close();
+            stop() {
+                client.off('change', onNext);
+                client.off('error', onError);
+                client.on('failed', onError);
             },
-        }).startWith(defaultValues),
+        });
+    });
+
+    const defaultValues$ = Stream.of(defaultValues).compose(delay(fallbackDelay));
+
+    return () => ({
+        stream: $.startWith(defaultValues$).flatten(),
     });
 }
 
