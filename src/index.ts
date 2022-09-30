@@ -99,19 +99,19 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>({
                     action();
                 };
 
-                onError = listener.error;
+                onError = listener.error.bind(listener);
 
                 client.on('change', onNext);
 
-                client.on('error', listener.error);
-                client.on('failed', listener.error);
+                client.on('error', onError);
+                client.on('failed', onError);
 
                 onNext();
             },
             stop() {
                 client.off('change', onNext);
                 client.off('error', onError);
-                client.on('failed', onError);
+                client.off('failed', onError);
             },
         });
     });
