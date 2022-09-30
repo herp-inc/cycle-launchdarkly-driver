@@ -1,7 +1,7 @@
 {
   "name": "@herp-inc/cycle-launchdarkly-driver",
   "description": "LaunchDarkly driver for Cycle.js, based on fp-ts and io-ts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "keywords": [
     "Cycle.js",
     "LaunchDarkly"
