@@ -20,7 +20,7 @@
     "eslint": "8.25.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
-    "fp-ts": "2.12.3",
+    "fp-ts": "2.13.1",
     "io-ts": "2.2.19",
     "launchdarkly-js-client-sdk": "2.23.0",
     "prettier": "2.7.1",
