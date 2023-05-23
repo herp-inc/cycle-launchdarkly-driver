@@ -119,7 +119,7 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>({
     const defaultValues$ = Stream.of(defaultValues).compose(delay(fallbackDelay));
 
     return () => ({
-        stream: $.startWith(defaultValues$).flatten(),
+        stream: $.startWith(defaultValues$).flatten().remember(),
     });
 }
 
