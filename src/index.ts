@@ -77,7 +77,6 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>({
     const client$ = makeClient$(envKey, user, options);
     const $ = client$.map((client) => {
         let onNext: () => void;
-        let onError: (err: unknown) => void;
 
         return Stream.create<Features>({
             start(listener) {
@@ -99,19 +98,12 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>({
                     action();
                 };
 
-                onError = listener.error.bind(listener);
-
                 client.on('change', onNext);
-
-                client.on('error', onError);
-                client.on('failed', onError);
 
                 onNext();
             },
             stop() {
                 client.off('change', onNext);
-                client.off('error', onError);
-                client.off('failed', onError);
             },
         });
     });
