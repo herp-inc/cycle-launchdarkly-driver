@@ -16,6 +16,10 @@ type LDParams = Parameters<typeof LaunchDarkly.initialize>;
 
 export type Params<Features extends Dictionary> = Readonly<{
     /**
+     * The initial context properties.
+     */
+    context: LDParams[1];
+    /**
      * The decoder for the feature flags.
      */
     decoder: Decoder<unknown, Features>;
@@ -36,18 +40,24 @@ export type Params<Features extends Dictionary> = Readonly<{
      * Optional configuration settings.
      */
     options?: LDParams[2];
-    /**
-     * The initial user properties.
-     */
-    user: LDParams[1];
 }>;
 
-function makeClient$(...[envKey, user, options]: LDParams): Stream<LaunchDarkly.LDClient> {
+type LegacyParams<Features extends Dictionary> = Omit<Params<Features>, 'context'> &
+    Readonly<{
+        /**
+         * The initial user properties.
+         *
+         * @deprecated Use `context` option instead.
+         */
+        user: LDParams[1];
+    }>;
+
+function makeClient$(...[envKey, context, options]: LDParams): Stream<LaunchDarkly.LDClient> {
     let client: LaunchDarkly.LDClient | undefined;
 
     return Stream.create<LaunchDarkly.LDClient>({
         start: (listener) => {
-            client = LaunchDarkly.initialize(envKey, user, options);
+            client = LaunchDarkly.initialize(envKey, context, options);
 
             void client.waitForInitialization().then(() => {
                 if (client === undefined) {
@@ -66,15 +76,13 @@ function makeClient$(...[envKey, user, options]: LDParams): Stream<LaunchDarkly.
 /**
  * A factory function for the LaunchDarkly driver.
  */
-export function makeLaunchDarklyDriver<Features extends Dictionary>({
-    decoder,
-    defaultValues,
-    envKey,
-    fallbackDelay = 0,
-    options,
-    user,
-}: Params<Features>): Driver<void, FeaturesSource<Features>> {
-    const client$ = makeClient$(envKey, user, options);
+export function makeLaunchDarklyDriver<Features extends Dictionary>(
+    params: Params<Features> | LegacyParams<Features>,
+): Driver<void, FeaturesSource<Features>> {
+    const { decoder, defaultValues, envKey, fallbackDelay = 0, options } = params;
+    const context = 'context' in params ? params.context : params.user;
+
+    const client$ = makeClient$(envKey, context, options);
     const $ = client$.map((client) => {
         let onNext: () => void;
 
