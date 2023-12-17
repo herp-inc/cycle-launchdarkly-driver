@@ -19,7 +19,7 @@
     "@typescript-eslint/parser": "6.13.2",
     "eslint": "8.55.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-import": "2.29.1",
     "fp-ts": "2.16.1",
     "io-ts": "2.2.21",
     "launchdarkly-js-client-sdk": "3.1.4",
