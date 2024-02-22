@@ -47,10 +47,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.56.0.tgz#ef20350fec605a7f7035a01764731b2de0f3782b"
   integrity sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==
 
-"@herp-inc/eslint-config@0.27.0":
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/@herp-inc/eslint-config/-/eslint-config-0.27.0.tgz#13e1f506657e64621b84568d6ccc9c296c03b9ff"
-  integrity sha512-ELGQ66Z7tQqzc9lMFdQ7Rg8XSFpP1CugK8QOJAhnBzlA5nC6KHB1Qa962j6Ci1h3ObO3E1ZglrlM+OCGOFrJdQ==
+"@herp-inc/eslint-config@0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@herp-inc/eslint-config/-/eslint-config-0.29.0.tgz#23e6ac9c35af0339dedde022b961cc933379fbd7"
+  integrity sha512-X8GUCSUz1iuo7HilFuaNIoQrWNcFbpoq1BE68qEzHjygR3t8NNlFUx9ZzTZtUV9Ej4br/34gmkVJYc87oOrhJg==
 
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.14"
