@@ -1233,18 +1233,18 @@ keyv@^4.5.3:
   dependencies:
     json-buffer "3.0.1"
 
-launchdarkly-js-client-sdk@3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-3.1.4.tgz#e613cb53412533c07ccf140ae570fc994c59758d"
-  integrity sha512-yq0FeklpVuHMSRz7jfUAfyM7I/659RvGztqJ0Y9G5eN/ZrG1o2W61ZU0Nrv/gqZCtLXjarh/u1otxSFFBjTpHw==
+launchdarkly-js-client-sdk@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-3.2.0.tgz#9ee981ab234bf894bfcb8a12fc867cc1c4cbbcd8"
+  integrity sha512-QHkZ94GL0dADB7nCtSeHXNjO1edqdnyfwdaLkkQ5R1FB21u5z774DIas5mGHo3hCklPCxoPfoBXNGywdWlG2gw==
   dependencies:
     escape-string-regexp "^4.0.0"
-    launchdarkly-js-sdk-common "5.0.3"
+    launchdarkly-js-sdk-common "5.1.0"
 
-launchdarkly-js-sdk-common@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/launchdarkly-js-sdk-common/-/launchdarkly-js-sdk-common-5.0.3.tgz#345f899f5779be8b03d6599978c855eb838d8b7f"
-  integrity sha512-wKG8UsVbPVq8+7eavgAm5CVmulQWN6Ddod2ZoA3euZ1zPvJPwIQ2GrOYaCJr3cFrrMIX+nQyBJHBHYxUAPcM+Q==
+launchdarkly-js-sdk-common@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/launchdarkly-js-sdk-common/-/launchdarkly-js-sdk-common-5.1.0.tgz#33378e81626e16ab234164c3ee1643204033cfeb"
+  integrity sha512-0/dUtXpCxd4wgbJHaE0kWwt9Te2WjaiTuHhgNte+x3oCIwB3Odp6caQ4QOkR4Nh9GfjNeBE/WMHFD/s4wrX9cg==
   dependencies:
     base64-js "^1.3.0"
     fast-deep-equal "^2.0.1"
