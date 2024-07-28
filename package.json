@@ -26,7 +26,7 @@
     "prettier": "3.3.3",
     "rollup": "4.18.1",
     "tslib": "2.6.3",
-    "typescript": "5.5.3",
+    "typescript": "5.5.4",
     "xstream": "11.14.0"
   },
   "peerDependencies": {
