@@ -25,7 +25,7 @@
     "launchdarkly-js-client-sdk": "3.4.0",
     "prettier": "3.3.3",
     "rollup": "4.21.1",
-    "tslib": "2.6.3",
+    "tslib": "2.7.0",
     "typescript": "5.5.4",
     "xstream": "11.14.0"
   },
