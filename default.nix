@@ -8,6 +8,8 @@ pkgs.stdenv.mkDerivation rec {
   name = "herp-inc-cycle-launchdarkly-driver";
   version = packageJSON.version;
 
+  NODE_EXTRA_CA_CERTS="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+
   src = pkgs.nix-gitignore.gitignoreSource [] ./.;
 
   buildInputs = [
