@@ -32,7 +32,7 @@
   "peerDependencies": {
     "fp-ts": "^2.11",
     "io-ts": "^2.2",
-    "launchdarkly-js-client-sdk": "2 || 3",
+    "launchdarkly-js-client-sdk": "3",
     "xstream": "11"
   }
 }

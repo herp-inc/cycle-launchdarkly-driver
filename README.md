@@ -10,7 +10,7 @@ Note that the following packages are peer dependencies of this library, which ne
 | ---------------------------------------------------------------------------------------- | ------- |
 | [`fp-ts`](https://www.npmjs.com/package/fp-ts)                                           | `^2.11` |
 | [`io-ts`](https://www.npmjs.com/package/io-ts)                                           | `^2.2`  |
-| [`launchdarkly-js-client-sdk`](https://www.npmjs.com/package/launchdarkly-js-client-sdk) | `2`     |
+| [`launchdarkly-js-client-sdk`](https://www.npmjs.com/package/launchdarkly-js-client-sdk) | `3`     |
 | [`xstream`](https://www.npmjs.com/package/xstream)                                       | `11`    |
 
 ```sh
