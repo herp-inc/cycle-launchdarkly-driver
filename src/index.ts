@@ -3,7 +3,8 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 import type { Decoder } from 'io-ts/Decoder';
 import * as LaunchDarkly from 'launchdarkly-js-client-sdk';
-import { type MemoryStream, Stream } from 'xstream';
+import { Stream } from 'xstream';
+import type { MemoryStream } from 'xstream';
 import delay from 'xstream/extra/delay';
 
 type Dictionary = Readonly<{ [_: string]: unknown }>;
