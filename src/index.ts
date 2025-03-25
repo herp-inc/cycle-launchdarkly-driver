@@ -1,11 +1,23 @@
 import type { Driver } from '@cycle/run';
-import * as E from 'fp-ts/Either';
-import { pipe } from 'fp-ts/function';
-import type { Decoder } from 'io-ts/Decoder';
+import type { StandardSchemaV1 } from '@standard-schema/spec';
 import * as LaunchDarkly from 'launchdarkly-js-client-sdk';
 import { Stream } from 'xstream';
 import type { MemoryStream } from 'xstream';
 import delay from 'xstream/extra/delay';
+
+type Either<E, A> =
+    | {
+          _tag: 'Left';
+          left: E;
+      }
+    | {
+          _tag: 'Right';
+          right: A;
+      };
+
+type Decoder<I, A> = {
+    decode: (input: I) => Either<unknown, A>;
+};
 
 type Dictionary = Readonly<{ [_: string]: unknown }>;
 
@@ -15,15 +27,30 @@ interface FeaturesSource<Features extends Dictionary> {
 
 type LDParams = Parameters<typeof LaunchDarkly.initialize>;
 
+type SchemaParams<Features extends Dictionary> = Readonly<
+    | {
+          decoder?: undefined;
+          /**
+           * The schema for the feature flags.
+           */
+          schema: StandardSchemaV1<unknown, Features>;
+      }
+    | {
+          /**
+           * The decoder for the feature flags.
+           *
+           * @deprecated Use `schema` option instead.
+           */
+          decoder: Decoder<unknown, Features>;
+          schema?: undefined;
+      }
+>;
+
 type Params<Features extends Dictionary> = Readonly<{
     /**
      * The initial context properties.
      */
     context: LDParams[1];
-    /**
-     * The decoder for the feature flags.
-     */
-    decoder: Decoder<unknown, Features>;
     /**
      * The default values of the feature flags.
      */
@@ -41,7 +68,8 @@ type Params<Features extends Dictionary> = Readonly<{
      * Optional configuration settings.
      */
     options?: LDParams[2];
-}>;
+}> &
+    SchemaParams<Features>;
 
 type LegacyParams<Features extends Dictionary> = Omit<Params<Features>, 'context'> &
     Readonly<{
@@ -80,7 +108,7 @@ function makeClient$(...[envKey, context, options]: LDParams): Stream<LaunchDark
 function makeLaunchDarklyDriver<Features extends Dictionary>(
     params: Params<Features> | LegacyParams<Features>,
 ): Driver<void, FeaturesSource<Features>> {
-    const { decoder, defaultValues, envKey, fallbackDelay = 0, options } = params;
+    const { defaultValues, envKey, fallbackDelay = 0, options } = params;
     const context = 'context' in params ? params.context : params.user;
 
     const client$ = makeClient$(envKey, context, options);
@@ -91,20 +119,27 @@ function makeLaunchDarklyDriver<Features extends Dictionary>(
             start(listener) {
                 onNext = (): void => {
                     const allFlags = client.allFlags();
-                    const flags = decoder.decode(allFlags);
 
-                    const action = pipe(
-                        flags,
-                        E.fold(
-                            () => () =>
-                                options?.logger?.warn(`Failed to decode the flags: ${JSON.stringify(allFlags)}`),
-                            (flags) => () => {
-                                listener.next(flags);
-                            },
-                        ),
-                    );
+                    if (params.schema === undefined) {
+                        const result = params.decoder!.decode(allFlags);
 
-                    action();
+                        if (result._tag === 'Right') {
+                            listener.next(result.right);
+                        } else {
+                            options?.logger?.warn(`Failed to decode the flags: ${JSON.stringify(allFlags)}`);
+                        }
+                    } else {
+                        const result = params.schema['~standard'].validate(allFlags);
+                        if (result instanceof Promise) {
+                            throw new TypeError('Schema validation must be synchronous');
+                        }
+
+                        if (result.issues === undefined) {
+                            listener.next(result.value);
+                        } else {
+                            options?.logger?.warn(`Failed to decode the flags: ${JSON.stringify(allFlags)}`);
+                        }
+                    }
                 };
 
                 client.on('change', onNext);

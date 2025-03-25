@@ -1,6 +1,6 @@
 {
   "name": "@herp-inc/cycle-launchdarkly-driver",
-  "description": "LaunchDarkly driver for Cycle.js, based on fp-ts and io-ts",
+  "description": "LaunchDarkly driver for Cycle.js, based on Standard Schema",
   "version": "0.4.0",
   "keywords": [
     "Cycle.js",
@@ -20,8 +20,6 @@
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.31.0",
-    "fp-ts": "2.16.9",
-    "io-ts": "2.2.22",
     "launchdarkly-js-client-sdk": "3.5.0",
     "prettier": "3.4.2",
     "rollup": "4.28.1",
@@ -30,9 +28,10 @@
     "xstream": "11.14.0"
   },
   "peerDependencies": {
-    "fp-ts": "^2.11",
-    "io-ts": "^2.2",
     "launchdarkly-js-client-sdk": "3",
     "xstream": "11"
+  },
+  "dependencies": {
+    "@standard-schema/spec": "~1.0.0"
   }
 }

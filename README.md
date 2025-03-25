@@ -1,6 +1,7 @@
 # `@herp-inc/cycle-launchdarkly-driver` [![npm](https://img.shields.io/npm/v/@herp-inc/cycle-launchdarkly-driver)](https://www.npmjs.com/package/@herp-inc/cycle-launchdarkly-driver)
 
-[LaunchDarkly](https://launchdarkly.com/) driver for [Cycle.js](https://cycle.js.org/), based on [fp-ts](https://gcanti.github.io/fp-ts/) and [io-ts](https://gcanti.github.io/fp-ts/)
+[LaunchDarkly](https://launchdarkly.com/) driver for [Cycle.js](https://cycle.js.org/), based on [Standard Schema
+](https://standardschema.dev/).
 
 ## Installation
 
@@ -8,8 +9,6 @@ Note that the following packages are peer dependencies of this library, which ne
 
 | Package                                                                                  | Version |
 | ---------------------------------------------------------------------------------------- | ------- |
-| [`fp-ts`](https://www.npmjs.com/package/fp-ts)                                           | `^2.11` |
-| [`io-ts`](https://www.npmjs.com/package/io-ts)                                           | `^2.2`  |
 | [`launchdarkly-js-client-sdk`](https://www.npmjs.com/package/launchdarkly-js-client-sdk) | `3`     |
 | [`xstream`](https://www.npmjs.com/package/xstream)                                       | `11`    |
 
@@ -23,7 +22,7 @@ $ yarn add @herp-inc/cycle-launchdarkly-driver
 import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';
 import { makeLaunchDarklyDriver } from '@herp-inc/cycle-launchdarkly-driver';
-import * as t from 'io-ts/Decoder';
+import * as z from 'zod';
 
 type Features = {
   foo: boolean;
@@ -32,10 +31,10 @@ type Features = {
 };
 
 const Features = {
-  decoder: t.type({
-    foo: t.boolean,
-    bar: t.number,
-    baz: t.string,
+  schema: z.object({
+    foo: z.boolean(),
+    bar: z.number(),
+    baz: z.string(),
   }),
   defaultValues: {
     foo: false,
@@ -56,12 +55,12 @@ function main({ features }: Sources): Sinks {
 const drivers = {
   features: makeLaunchDarklyDriver({
     envKey: YOUR_CLIENT_SIDE_ID,
-    decoder: FeatureFlags.decoder,
     defaultValues: FeatureFlags.defaultValues,
     fallbackDelay: 100,
     options: {
       bootstrap: 'localStorage',
     },
+    schema: FeatureFlags.schema,
     user: {
       key: user.id,
     },
