@@ -8,13 +8,13 @@ import delay from 'xstream/extra/delay';
 
 type Dictionary = Readonly<{ [_: string]: unknown }>;
 
-export interface FeaturesSource<Features extends Dictionary> {
+interface FeaturesSource<Features extends Dictionary> {
     readonly stream: MemoryStream<Features>;
 }
 
 type LDParams = Parameters<typeof LaunchDarkly.initialize>;
 
-export type Params<Features extends Dictionary> = Readonly<{
+type Params<Features extends Dictionary> = Readonly<{
     /**
      * The initial context properties.
      */
@@ -76,7 +76,7 @@ function makeClient$(...[envKey, context, options]: LDParams): Stream<LaunchDark
 /**
  * A factory function for the LaunchDarkly driver.
  */
-export function makeLaunchDarklyDriver<Features extends Dictionary>(
+function makeLaunchDarklyDriver<Features extends Dictionary>(
     params: Params<Features> | LegacyParams<Features>,
 ): Driver<void, FeaturesSource<Features>> {
     const { decoder, defaultValues, envKey, fallbackDelay = 0, options } = params;
@@ -126,8 +126,11 @@ export function makeLaunchDarklyDriver<Features extends Dictionary>(
 /**
  * A factory function to create a mocked `FeaturesSource`, for testing purposes.
  */
-export function makeMockFeaturesDriver<Features extends Dictionary>(
+function makeMockFeaturesDriver<Features extends Dictionary>(
     $: Stream<Features>,
 ): Driver<void, FeaturesSource<Features>> {
     return () => ({ stream: $ });
 }
+
+export type { FeaturesSource, Params };
+export { makeLaunchDarklyDriver, makeMockFeaturesDriver };
